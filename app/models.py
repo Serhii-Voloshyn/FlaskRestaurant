@@ -12,7 +12,7 @@ class User(db.Model):
     username = db.Column(db.String(80), nullable=False, unique=True)
     full_name = db.Column(db.String(80), nullable=True, default="Anonimous")
     email = db.Column(db.String(80), nullable=False, unique=True)
-    password = db.Column(db.String(80), nullable=False)
+    password = db.Column(db.String(200), nullable=False)
     disabled = db.Column(db.Boolean, default=False)
 
     @property
