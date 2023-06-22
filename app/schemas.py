@@ -1,5 +1,6 @@
 from datetime import date
-from pydantic import BaseModel, EmailStr, Field
+from typing import Optional
+from pydantic import BaseModel, EmailStr, Field, StrictInt
 
 
 class User(BaseModel):
@@ -34,7 +35,10 @@ class MenuItem(BaseModel):
     price: float
 
 
+StrictIntRange = type('MyStrictStr', (StrictInt,), {"ge":1, "le":5})
+
+
 class Vote(BaseModel):
     menu_id: int
     employee_id: int
-    score: int
+    score: StrictIntRange
