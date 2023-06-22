@@ -14,7 +14,7 @@ from .fixtures import (
        ("1", "2023-06-19", 201, 1)
    ]
 )
-def test_create_restaurant(
+def test_create_restaurant_authorized(
     restaurant_id, date, status_code, count, app,
     tear_down_db, create_restaurant, login_header, client
 ):
@@ -26,6 +26,30 @@ def test_create_restaurant(
         app.url_for("routes.menu_create"),
         json=menu,
         headers=login_header
+    )
+
+    assert response.status_code == status_code
+    assert models.Menu.query.count() == count
+
+
+@pytest.mark.parametrize(
+   "restaurant_id, date, status_code, count", [
+       ("0", "2023-06-19", 401, 0),
+       ("1", "2023-06-19-01", 401, 0),
+       ("1", "2023-06-19", 401, 0)
+   ]
+)
+def test_create_restaurant_unauthorized(
+    restaurant_id, date, status_code, count, app,
+    tear_down_db, create_restaurant, client
+):
+    menu = {
+        "restaurant_id": restaurant_id,
+        "day": date,
+    }
+    response = client.post(
+        app.url_for("routes.menu_create"),
+        json=menu,
     )
 
     assert response.status_code == status_code

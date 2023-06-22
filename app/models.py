@@ -7,7 +7,7 @@ db = SQLAlchemy()
 
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
     full_name = db.Column(db.String(80), nullable=True, default="Anonimous")
@@ -29,7 +29,7 @@ class User(db.Model):
 
 
 class Employee(db.Model):
-    __tablename__ = 'employee'
+    __tablename__ = "employee"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     full_name = db.Column(db.String(80), nullable=True)
     email = db.Column(db.String(80), nullable=False)
@@ -45,7 +45,7 @@ class Employee(db.Model):
 
 
 class Restaurant(db.Model):
-    __tablename__ = 'restaurant'
+    __tablename__ = "restaurant"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), nullable=False)
 
@@ -59,7 +59,7 @@ class Restaurant(db.Model):
 
 
 class Menu(db.Model):
-    __tablename__ = 'menu'
+    __tablename__ = "menu"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey(Restaurant.id))
     day = db.Column(db.Date, default=datetime.datetime.utcnow)
@@ -76,7 +76,7 @@ class Menu(db.Model):
 
 
 class MenuItem(db.Model):
-    __tablename__ = 'menu_item'
+    __tablename__ = "menu_item"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     menu_id = db.Column(db.Integer, db.ForeignKey(Menu.id))
     name = db.Column(db.String(80), nullable=False)
@@ -94,7 +94,7 @@ class MenuItem(db.Model):
 
 
 class Vote(db.Model):
-    __tablename__ = 'vote'
+    __tablename__ = "vote"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     employee_id = db.Column(db.Integer, db.ForeignKey(Employee.id))
     menu_id = db.Column(db.Integer, db.ForeignKey(Menu.id))

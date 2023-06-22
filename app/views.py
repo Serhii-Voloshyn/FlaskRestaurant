@@ -126,7 +126,7 @@ def menu_get_all():
 
 
 @routes.route("/menu_get/<day>", methods=["GET"])
-def get_by_day(day):
+def menu_get_by_day(day):
     menus = Menu.query.filter_by(day=day).all()
     menus = [menu.serialize for menu in menus]
 
@@ -166,11 +166,12 @@ def item_create(current_user):
 @routes.route("/vote", methods=["POST"])
 @token_required
 def create_vote(current_user):
+
     try:
         vote = schema.Vote(**dict(request.json))
     except ValidationError as e:
         return e.json(), 400
-
+    
     menu = Menu.query.filter_by(id=vote.menu_id).all()
 
     if not menu:
@@ -195,7 +196,7 @@ def create_vote(current_user):
     except Exception as e:
         return {"DB WENT NUTS": e}, 400
 
-    return vote.serialize, 20
+    return vote.serialize, 201
 
 
 @routes.route("/vote_get/<menu_id>", methods=["GET"])
