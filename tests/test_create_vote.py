@@ -4,7 +4,7 @@ from app import models
 from .fixtures import (
     app, client, tear_down_db, create_restaurant,
     login_header, create_user, username, password,
-    create_menu, create_employees
+    create_menu, create_employee
 )
 
 
@@ -22,7 +22,7 @@ from .fixtures import (
 def test_create_vote_authorized(
     status_code, count, app,
     tear_down_db, login_header, client,
-    create_menu, create_employees,
+    create_menu, create_employee,
     menu_id, employee_id, score
 ):
     vote = {
@@ -54,7 +54,7 @@ def test_create_vote_authorized(
 )
 def test_create_vote_unauthorized(
     app, tear_down_db, client,
-    create_menu, create_employees,
+    create_menu, create_employee,
     menu_id, employee_id, score
 ):
     vote = {
@@ -74,7 +74,7 @@ def test_create_vote_unauthorized(
 
 def test_create_vote_authorized_employee_dublicate(
     app, tear_down_db, login_header, client,
-    create_menu, create_employees,
+    create_menu, create_employee,
 ):
     vote = {
         "menu_id": 1,
